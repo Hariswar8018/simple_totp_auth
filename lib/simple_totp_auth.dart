@@ -95,30 +95,45 @@ class TOTP {
 }
 
 @immutable
+enum LogoType { asset, network, none }
+
+@immutable
 class TOTPQrWidget extends StatelessWidget {
   final String secret;
   final String issuer;
   final String accountName;
-  final ImageProvider? logo;
+  final LogoType logoType;
+  final String? logoPath;
 
   final double width, height;
+  final Color color, radiusColor;
+  final double radius, radiusWidth, margin, padding;
+
   const TOTPQrWidget({
     super.key,
     required this.secret,
     required this.issuer,
     required this.accountName,
-    this.logo,
+    this.logoType = LogoType.none,
+    this.logoPath,
     this.width = 100,
     this.height = 100,
     this.color = Colors.white,
-    this.radiuscolor = Colors.white,
+    this.radiusColor = Colors.white,
     this.radius = 0,
-    this.radiuswidth = 0,
+    this.radiusWidth = 0,
     this.padding = 0,
     this.margin = 0,
   });
 
-   final Color color, radiuscolor;final double radius, radiuswidth, margin,padding;
+  ImageProvider? get logo {
+    if (logoType == LogoType.asset && logoPath != null) {
+      return AssetImage(logoPath!);
+    } else if (logoType == LogoType.network && logoPath != null) {
+      return NetworkImage(logoPath!);
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,15 +142,21 @@ class TOTPQrWidget extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: color, borderRadius: BorderRadius.circular(radius),border: Border.all(
-        color: radiuscolor,width:radiuswidth ,
-      )
-      ),margin: EdgeInsets.all(margin),padding: EdgeInsets.all(padding),
-      width: width,height: width,
+        color: color,
+        borderRadius: BorderRadius.circular(radius),
+        border: Border.all(
+          color: radiusColor,
+          width: radiusWidth,
+        ),
+      ),
+      margin: EdgeInsets.all(margin),
+      padding: EdgeInsets.all(padding),
+      width: width,
+      height: width,
       child: PrettyQrView.data(
         data: uri,
         decoration: PrettyQrDecoration(
-          image: logo != null ? PrettyQrDecorationImage(image: logo!) : null,
+          image: logo != null ? PrettyQrDecorationImage(image: logo!) : PrettyQrDecorationImage(image: NetworkImage("https://ibb.co/3Y80JG2P")),
           quietZone: PrettyQrQuietZone.standart,
         ),
       ),

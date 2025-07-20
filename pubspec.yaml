@@ -1,6 +1,6 @@
 name: simple_totp_auth
 description: A Flutter package to generate and verify TOTP codes with QR setup widget. Works on all platforms.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/Hariswar8018/simple_totp_auth
 repository: https://github.com/Hariswar8018/simple_totp_auth
 issue_tracker: https://github.com/Hariswar8018/simple_totp_auth/issues

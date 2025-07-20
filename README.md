@@ -62,22 +62,23 @@ print(uri);
 
 ```
 ## 📷 Display the QR Code in Your App
+
 ```
 TOTPQrWidget(
   secret: secret,
   issuer: 'MyApp',
   accountName: 'user@example.com',
-  logo: const AssetImage('images/logo.png'),
+  logoType: LogoType.asset,         // Choose asset or network
+  logoPath: 'images/logo.png',      // Path to the asset or URL for network image
   width: 200,
   height: 200,
   color: Colors.white,
+  radiusColor: Colors.blue,
+  radiusWidth: 2,
   radius: 16,
-  radiuscolor: Colors.blue,
-  radiuswidth: 2,
   padding: 8,
   margin: 8,
 )
-
 ```
 ## 📋 Copy Secret to Clipboard (with feedback)
 ```
