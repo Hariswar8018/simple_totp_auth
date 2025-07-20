@@ -29,7 +29,7 @@ A lightweight Flutter package for **generating**, **verifying**, and **sharing**
 
 ```yaml
 dependencies:
-  simple_totp_auth: ^0.0.1
+  simple_totp_auth: ^0.0.2
 ```
 ---
 # 🧪 Usage
