@@ -58,7 +58,7 @@ final uri = totp.generateOTPAuthURI(
   account: "user@example.com",
 );
 print(uri);
-// otpauth://totp/MyApp:user@example.com?secret=xxxxx&issuer=MyApp
+
 
 ```
 ## 📷 Display the QR Code in Your App

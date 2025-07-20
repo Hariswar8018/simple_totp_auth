@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TOTP Demo',debugShowCheckedModeBanner: false,
+      title: 'TOTP Demo',
+      debugShowCheckedModeBanner: false,
       home: TOTPExamplePage(),
     );
   }
@@ -23,7 +24,7 @@ class TOTPExamplePage extends StatefulWidget {
 }
 
 class _TOTPExamplePageState extends State<TOTPExamplePage> {
-  TOTP _totp = TOTP(secret: 'JBSWY3DPEHPK3PXP');  //Demo will be uypdated
+  TOTP _totp = TOTP(secret: 'JBSWY3DPEHPK3PXP'); //Demo will be uypdated
   String _code = '';
   String _inputCode = '';
   String _result = '';
@@ -42,10 +43,10 @@ class _TOTPExamplePageState extends State<TOTPExamplePage> {
     });
   }
 
-  void generate(){
+  void generate() {
     final secret = TOTP.generateSecret();
     print('Generated secret: $secret');
-    _totp=TOTP(secret: secret);
+    _totp = TOTP(secret: secret);
   }
 
   @override
@@ -58,26 +59,42 @@ class _TOTPExamplePageState extends State<TOTPExamplePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: const Text('TOTP Example',style: TextStyle(color:Colors.white),),backgroundColor: Color(0xff7F00FF),),
+      appBar: AppBar(
+        title: const Text(
+          'TOTP Example',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Color(0xff7F00FF),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            TOTPQrWidget(secret: _totp.secret, issuer: "My Mentos", accountName: "ayush@gmail.com",width: 200,height: 200,),
+            TOTPQrWidget(
+              secret: _totp.secret,
+              issuer: "My Mentos",
+              accountName: "ayush@gmail.com",
+              width: 200,
+              height: 200,
+            ),
             const SizedBox(height: 20),
-            Text('Generated TOTP Secret: ${_totp.secret}', style: const TextStyle(fontSize: 20)),
+            Text('Generated TOTP Secret: ${_totp.secret}',
+                style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 20),
             TextField(
-              decoration: const InputDecoration(labelText: 'Enter code to verify'),
+              decoration:
+                  const InputDecoration(labelText: 'Enter code to verify'),
               onChanged: (val) => _inputCode = val,
             ),
             const SizedBox(height: 10),
             InkWell(
-              onTap:_verifyCode,
-              child: button("Verify OTP",Color(0xff7F00FF)),
+              onTap: _verifyCode,
+              child: button("Verify OTP", Color(0xff7F00FF)),
             ),
             const SizedBox(height: 10),
-            Text(_result, style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w900)),
+            Text(_result,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
             const Spacer(),
             Container(
               width: MediaQuery.of(context).size.width,
@@ -86,19 +103,20 @@ class _TOTPExamplePageState extends State<TOTPExamplePage> {
                 children: [
                   InkWell(
                     onTap: _generateCode,
-                    child: button("Generate New",Colors.red),
+                    child: button("Generate New", Colors.red),
                   ),
                   InkWell(
                     onTap: () async {
-                      String code=_totp.secret;
+                      String code = _totp.secret;
                       String s = await TOTP.copyToClipboard(code);
-                      ScaffoldMessenger(  //Error here
+                      ScaffoldMessenger(
+                        //Error here
                         child: SnackBar(
-                          content:  Text(s),
+                          content: Text(s),
                         ),
                       );
                     },
-                    child: button("ClipBoard Copy",Colors.pinkAccent),
+                    child: button("ClipBoard Copy", Colors.pinkAccent),
                   ),
                 ],
               ),
@@ -108,15 +126,21 @@ class _TOTPExamplePageState extends State<TOTPExamplePage> {
       ),
     );
   }
-  Widget button(String str,Color color){
-    return  Container(
+
+  Widget button(String str, Color color) {
+    return Container(
       width: 200,
       height: 50,
       decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(15),
+        color: color,
+        borderRadius: BorderRadius.circular(15),
       ),
-      child: Center(child: Text(str,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700,color: Colors.black),)),
+      child: Center(
+          child: Text(
+        str,
+        style: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black),
+      )),
     );
   }
 }
